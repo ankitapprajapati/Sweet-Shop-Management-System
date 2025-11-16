@@ -35,9 +35,14 @@ export default function LoginForm() {
 
 
       // Allows test to detect loading state
-      setTimeout(() => {
+    setTimeout(() => {
         setLoading(false);
+        const role = res.data.user.role;
+        if( role ==="admin"){
+            navigate("/admin")
+        }else{
         navigate("/dashboard");
+        }
       }, 500);
     } catch(e) {
         console.log("Error : ",e)

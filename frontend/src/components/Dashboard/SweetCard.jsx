@@ -1,5 +1,6 @@
 import axios from "axios";
 import Button from "../UI/Button";
+import { ShoppingCart, Package, Tag } from "lucide-react";
 
 export default function SweetCard({ sweet, onChange }) {
   const handlePurchase = async () => {
