@@ -28,14 +28,19 @@ export default function LoginForm() {
     setLoading(true);
 
     try {
-      await axios.post("/api/auth/login", form);
+        const res = await axios.post(`${import.meta.env.VITE_BASEURL}/api/users/login`, form);
+       
+        localStorage.setItem("token",res.data.token)
+        localStorage.setItem("role", res.data.user.role);
+
 
       // Allows test to detect loading state
       setTimeout(() => {
         setLoading(false);
         navigate("/dashboard");
       }, 500);
-    } catch {
+    } catch(e) {
+        console.log("Error : ",e)
       setLoading(false);
     }
   };

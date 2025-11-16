@@ -3,12 +3,20 @@ import Button from "../UI/Button";
 
 export default function AdminSweetCard({ sweet, onChange }) {
   const handleDelete = async () => {
-    await axios.delete(`/api/sweets/${sweet._id}`);
+    await axios.delete(`${import.meta.env.VITE_BASEURL}/api/api/sweets/${sweet._id}`,{
+      headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+    });
     onChange(); // refresh list
   };
 
   const handleRestock = async () => {
-    await axios.post(`/api/sweets/${sweet._id}/restock`, { quantity: 1 });
+    await axios.post(`${import.meta.env.VITE_BASEURL}/api/sweets/${sweet._id}/restock`, { quantity: 1 },{
+      headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+    });
     onChange();
   };
 

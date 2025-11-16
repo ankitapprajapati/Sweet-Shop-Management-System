@@ -7,11 +7,22 @@ export default function Dashboard() {
   const [sweets, setSweets] = useState([]);
   const [filtered, setFiltered] = useState([]);
 
-  const fetchSweets = async () => {
-    const res = await axios.get("/api/sweets");
-    setSweets(res.data.sweets);
-    setFiltered(res.data.sweets);
-  };
+const fetchSweets = async () => {
+  const token = localStorage.getItem("token");
+
+  const res = await axios.get(
+    `${import.meta.env.VITE_BASEURL}/api/sweets`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  setSweets(res.data.sweets);
+  setFiltered(res.data.sweets);
+};
+
 
   useEffect(() => {
     fetchSweets();

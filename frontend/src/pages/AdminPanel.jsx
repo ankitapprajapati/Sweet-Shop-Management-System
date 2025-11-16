@@ -9,7 +9,11 @@ export default function AdminPanel() {
   const [showForm, setShowForm] = useState(false);
 
   const fetchSweets = async () => {
-    const res = await axios.get("/api/sweets");
+    const res = await axios.get(`${import.meta.env.VITE_BASEURL}/api/sweets`,{
+       headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+    });
     setSweets(res.data.sweets);
   };
 

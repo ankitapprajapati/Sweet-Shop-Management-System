@@ -3,7 +3,15 @@ import Button from "../UI/Button";
 
 export default function SweetCard({ sweet, onChange }) {
   const handlePurchase = async () => {
-    await axios.post(`/api/sweets/${sweet._id}/purchase`, { quantity: 1 });
+    await axios.post(
+        `${import.meta.env.VITE_BASEURL}/api/sweets/${sweet._id}/purchase`,
+        { quantity: 1 },
+        {
+            headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+        }
+    );
     onChange(); // refresh list after purchase
   };
 

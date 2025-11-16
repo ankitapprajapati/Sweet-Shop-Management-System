@@ -18,12 +18,17 @@ export default function AdminSweetForm({ onClose, onCreated }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await axios.post("/api/sweets", {
+    await axios.post(`${import.meta.env.VITE_BASEURL}/api/sweets`, {
       name: form.name,
       category: form.category,
       price: Number(form.price),
       quantity: Number(form.quantity),
-    });
+    },{
+       headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+    }
+  );
 
     onCreated();
     onClose();
