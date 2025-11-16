@@ -19,7 +19,7 @@ export const userLoginController = async( req:Request,res:Response)=>{
         if( !user ){
             return res.status(400).json({ success:false, message:"Invalid Credentials"})
         }
-        return res.json({ success: true, id:user._id, email:user.email });
+        return res.json({ success: true, user });
     }
     catch(e){
         res.status(400).json({ success:false,error:e});
