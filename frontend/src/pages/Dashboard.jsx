@@ -7,12 +7,13 @@ export default function Dashboard() {
   const [sweets, setSweets] = useState([]);
   const [filtered, setFiltered] = useState([]);
 
+  const fetchSweets = async () => {
+    const res = await axios.get("/api/sweets");
+    setSweets(res.data.sweets);
+    setFiltered(res.data.sweets);
+  };
+
   useEffect(() => {
-    async function fetchSweets() {
-      const res = await axios.get("/api/sweets");
-      setSweets(res.data.sweets);
-      setFiltered(res.data.sweets);
-    }
     fetchSweets();
   }, []);
 
@@ -30,7 +31,7 @@ export default function Dashboard() {
 
       <SearchBar onSearch={handleSearch} />
 
-      <DashboardList sweets={filtered} />
+      <DashboardList sweets={filtered} onChange={fetchSweets} />
     </div>
   );
 }

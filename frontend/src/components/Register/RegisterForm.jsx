@@ -25,7 +25,7 @@ export default function RegisterForm() {
     setLoading(true);
 
     try {
-      await axios.post("/api/auth/register", form);
+      await axios.post(`${import.meta.env.VITE_BASEURL}/api/users/register`, form);
 
       setTimeout(() => {
         setLoading(false);
