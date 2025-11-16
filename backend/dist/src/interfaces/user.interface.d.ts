@@ -1,8 +1,10 @@
+export type userRole = "user" | "admin";
 export interface User {
     _id?: string;
     name: string;
     email: string;
     password: string;
+    role: userRole;
     createdAt?: Date;
     updatedAt?: Date;
 }

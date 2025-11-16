@@ -1,5 +1,5 @@
 export interface Sweet {
-  id: string;
+  id ? : string;
   name: string;
   category: string;
   price: number;

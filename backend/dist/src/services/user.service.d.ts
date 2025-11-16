@@ -1,7 +1,20 @@
-import { UserCreate, UserLogin } from '../interfaces/user.interface';
-export declare const userCreate: (Paylaod: UserCreate) => Promise<import("mongoose").Document<unknown, {}, import("../interfaces/user.interface").User> & import("../interfaces/user.interface").User & Required<{
+import { UserCreate, UserLogin } from "../interfaces/user.interface";
+export declare const userCreate: (payload: UserCreate) => Promise<{
     _id: string;
-}>>;
-export declare const userLogin: (Paylaod: UserLogin) => Promise<import("mongoose").Document<unknown, {}, import("../interfaces/user.interface").User> & import("../interfaces/user.interface").User & Required<{
-    _id: string;
-}>>;
+    name: string;
+    email: string;
+    role: import("../interfaces/user.interface").userRole;
+    createdAt?: Date;
+    updatedAt?: Date;
+}>;
+export declare const userLogin: (payload: UserLogin) => Promise<{
+    user: {
+        _id: string;
+        name: string;
+        email: string;
+        role: import("../interfaces/user.interface").userRole;
+        createdAt?: Date;
+        updatedAt?: Date;
+    };
+    token: any;
+}>;
