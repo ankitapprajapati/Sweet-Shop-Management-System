@@ -11,7 +11,8 @@ describe("User Registration API", () => {
       .send({
         name: "Ankit",
         email: "ankit@gmail.com",
-        password: "12345678"
+        password: "12345678",
+        role : "user"
       });
 
     expect(res.status).toBe(201);
