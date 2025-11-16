@@ -30,10 +30,16 @@ export default function LoginForm() {
 
       // Store token or user data as needed
       localStorage.setItem("token", response.data.token);
+      localStorage.setItem("role",response.data.user.role)
 
       setTimeout(() => {
         setLoading(false);
-        navigate("/dashboard");
+        const role = response.data.user.role;
+        if( role=="admin"){
+            navigate("/admin");
+        }else{
+            navigate("/dashboard");
+        }
       }, 500);
     } catch {
       setLoading(false);
