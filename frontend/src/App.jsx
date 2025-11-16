@@ -7,11 +7,13 @@ import Register from './pages/Register'
 import Landing from './pages/Landing'
 import ProtectedRoute from './routes/ProtectedRoute'
 import AdminRoute from './routes/AdminRoute'
+import Navbar from './components/UI/Navbar'
 
 function App() {
 
   return (
     <>
+      <Navbar/>
       <Routes>
           {/* Landing Page */}
           <Route path='/' element={<Landing/>}/>

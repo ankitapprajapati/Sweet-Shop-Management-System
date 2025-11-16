@@ -3,8 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Input from "../UI/Input";
 import LoadingMessage from "../UI/LoadingMessage";
-import Button from "../UI/Button";
-
+import  Button  from "../UI/Button";
 
 export default function LoginForm() {
   const [form, setForm] = useState({
@@ -15,66 +14,74 @@ export default function LoginForm() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const isDisabled = form.email.trim() === "" || form.password.trim() === "";
-
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (isDisabled) return;
-
     setLoading(true);
 
     try {
-        const res = await axios.post(`${import.meta.env.VITE_BASEURL}/api/users/login`, form);
-       
-        localStorage.setItem("token",res.data.token)
-        localStorage.setItem("role", res.data.user.role);
+      const response = await axios.post(
+        `${import.meta.env.VITE_BASEURL}/api/users/login`,
+        form
+      );
 
+      // Store token or user data as needed
+      localStorage.setItem("token", response.data.token);
 
-      // Allows test to detect loading state
-    setTimeout(() => {
+      setTimeout(() => {
         setLoading(false);
-        const role = res.data.user.role;
-        if( role ==="admin"){
-            navigate("/admin")
-        }else{
         navigate("/dashboard");
-        }
       }, 500);
-    } catch(e) {
-        console.log("Error : ",e)
+    } catch {
       setLoading(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-
+    <form onSubmit={handleSubmit} className="flex flex-col gap-5">
       <Input
-        placeholder="Email"
+        label="Email"
         type="email"
+        placeholder="Enter your email"
         name="email"
         value={form.email}
         onChange={handleChange}
+        required
       />
 
       <Input
-        placeholder="Password"
+        label="Password"
         type="password"
+        placeholder="Enter your password"
         name="password"
         value={form.password}
         onChange={handleChange}
+        required
       />
 
-        <Button type="submit" disabled={isDisabled}>
-            Login
-        </Button>
+      <div className="flex items-center justify-between text-sm">
+        <label className="flex items-center gap-2 cursor-pointer">
+          <input type="checkbox" className="rounded border-input" />
+          <span className="text-muted-foreground">Remember me</span>
+        </label>
+        <a href="#" className="text-primary hover:underline">
+          Forgot password?
+        </a>
+      </div>
 
+      <Button
+        type="submit"
+        size="lg"
+        disabled={loading}
+        className="w-full gradient-primary hover:opacity-90 transition-smooth font-semibold"
+      >
+        {loading ? "Signing In..." : "Sign In"}
+      </Button>
 
-      {loading && <LoadingMessage text="Logging in..." />}
+      {loading && <LoadingMessage text="Authenticating..." />}
     </form>
   );
 }
