@@ -5,7 +5,7 @@
   "scripts": {
     "test": "jest --watchAll",
     "dev": "npx tsc -b && node dist/src/index.js",
-    "build": "npx tsc -b",
+    "build": "npm install && npx tsc -b",
     "start": "node dist/src/index.js"
   },
   "keywords": [],
